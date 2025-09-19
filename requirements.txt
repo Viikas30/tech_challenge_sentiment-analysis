@@ -1,0 +1,6 @@
+Fastapi
+pydantic
+langchain
+langchain-community
+langchain_groq
+pandas
