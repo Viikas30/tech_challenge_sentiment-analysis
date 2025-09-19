@@ -1,10 +1,22 @@
-## Python application to detect sentiment in call transcripts
-**This application uses a LLM to detect and classify and generate a summary in the transcript
-**Steps to run the application
-**Install the dependencies from the requirements.txt
-**setup your GROQ_API_KEY in the .env file
-**Run the application: uvicorn main:app
+# 📞 Call Transcript Sentiment Analyzer
 
-##Stack
-**Fastapi backend, Langchain for the LLM call
-**Simple html,css Frontend
+This application analyzes call transcripts using an LLM to:  
+- Detect overall sentiment  
+- Classify the tone (Positive, Negative, Neutral with sub-categories)  
+- Generate a concise summary  
+
+---
+
+## 🚀 Steps to Run
+
+1. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+
+2.**Set up environment variables**
+Create a .env file in the project root and add:
+GROQ_API_KEY=your_api_key_here
+
+3.**Run the application**
+   ```bash
+   uvicorn main:app --reload
