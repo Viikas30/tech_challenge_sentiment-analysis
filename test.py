@@ -49,22 +49,24 @@ Summary: [Your concise summary of the call]
             print(f"An error occurred: {str(e)}")
         if hasattr(output,'content'):
             return output
-    def extract(self,output):
-
-        n1=output.content.split("\n")
+    def extract(self, output, buffer=None):
+        n1 = output.content.split("\n")
         column = [i.split(":")[0].strip() for i in n1]
-        print(column)
-        row= [i.split(":")[1].strip() for i in n1]
-        print(row)
+        row = [i.split(":")[1].strip() for i in n1]
+        
         now = datetime.datetime.now()
         formatted_datetime = now.strftime("%Y-%m-%d_%H-%M-%S")
-        print(formatted_datetime)
+        
         df = pd.DataFrame([row], columns=column)
-        filename=f"call_analysis_{formatted_datetime}.csv"
-        try:
-            df.to_csv(filename, index=False)
-        except Exception as e:
-            print(f"Error saving to CSV: {e}")
+        
+        if buffer:
+            df.to_csv(buffer, index=False)
+        else:
+            filename = f"call_analysis_{formatted_datetime}.csv"
+            try:
+                df.to_csv(filename, index=False)
+            except Exception as e:
+                print(f"Error saving to CSV: {e}")
 if __name__=="__main__":
     ea=EmotionAnalysis()
     output=ea.analyze(call)
