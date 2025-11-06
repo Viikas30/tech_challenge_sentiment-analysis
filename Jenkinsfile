@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Viikas30/tech_challenge_sentiment-analysis.git'
+                git branch: 'master', url: 'https://github.com/Viikas30/tech_challenge_sentiment-analysis.git'
             }
         }
 
@@ -45,3 +45,4 @@ pipeline {
         }
     }
 }
+
