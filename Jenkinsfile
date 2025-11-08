@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/Viikas30/tech_challenge_sentiment-analysis.git'
+                git branch: 'main', url: 'https://github.com/Viikas30/tech_challenge_sentiment-analysis.git'
             }
         }
 
@@ -26,11 +26,17 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    // Stop old container if it exists
-                    sh '''
-                    docker rm -f myapp || true
-                    docker run -d -p 5000:80 --name myapp ${IMAGE_NAME}:${IMAGE_TAG}
-                    '''
+                    // Inject the secret from Jenkins Credentials
+                    withCredentials([string(credentialsId: 'GROQ_API_KEY', variable: 'GROQ_API_KEY')]) {
+                        sh '''
+                        docker rm -f myapp || true
+                        docker run -d \
+                            -p 5000:80 \
+                            --name myapp \
+                            -e GROQ_API_KEY=${GROQ_API_KEY} \
+                            ${IMAGE_NAME}:${IMAGE_TAG}
+                        '''
+                    }
                 }
             }
         }
@@ -45,4 +51,3 @@ pipeline {
         }
     }
 }
-
